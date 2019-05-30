@@ -21,8 +21,8 @@ public:
 
     void Feed_forward(vector<double> &inputs);
     void Back_propagation(vector<double> &targets);
-    double calculate_cost(vector<double> &targets);     //todo
-    void print_result();                                //DONE
+    double calculate_cost(vector<double> &targets);     //TODO use try()
+    void print_result();
 
 private:
     vector<Layer> net_matrix;  //[layer][neuron]

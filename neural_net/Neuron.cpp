@@ -18,17 +18,16 @@ Neuron::~Neuron() {}
 double Neuron::eta = 0.15;
 
 double Neuron::transfer_function(double x) {
-
+    /*    double var = exp(x)/(1 + exp(x));
+     return var;                 //logistic curve    */
+    
     return tanh(x);
-    double var = exp(x)/(1 + exp(x));
-    return var;                 //logistic curve
 }
 
 double Neuron::transfer_function_derivative(double x) {
 
-
+     //return exp(x)  / (   (1-exp(x)) * (1 - exp(x))    ); logistic curve derivative
      return 1.0 - x * x;
-    return exp(x)  / (   (1-exp(x)) * (1 - exp(x))    );
 }
 
 double Neuron::sum() {

@@ -23,7 +23,7 @@ public:
     //Back_prop
     double transfer_function(double);
     static double transfer_function_derivative(double);
-    double sum();
+    double sum();   // TODO: bias
 
     void calculate_hidden_layer_delta();
     void calculate_output_layer_delta(double &target);

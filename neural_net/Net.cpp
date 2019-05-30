@@ -1,6 +1,5 @@
 #include "Net.h"
 #include "Neuron.h"
-#include <vector>
 #include "Connection.h"
 #include <random>
 #include <math.h>
@@ -11,7 +10,7 @@ typedef vector<Connection *> Neuron_c;
 typedef vector<Neuron_c> Layer_c;
 
 Net::Net(const vector<unsigned> &topolog) : topology(topolog) {
-    unsigned numLayers = topology.size();
+    unsigned numLayers = (unsigned)topology.size();
 
     //create layers and add them to the net_matrix
     for (unsigned layerNum = 0; layerNum < numLayers; ++layerNum) {
@@ -37,7 +36,6 @@ Net::Net(const vector<unsigned> &topolog) : topology(topolog) {
         }
     }
 
-
     //make and initialize Nets Outputs
     for(unsigned neuron_num=0; neuron_num<topology.back(); ++neuron_num){
 
@@ -59,14 +57,13 @@ Net::Net(const vector<unsigned> &topolog) : topology(topolog) {
 }
 
 Net::~Net() {
-    unsigned numLayers = topology.size();
+    unsigned numLayers = (unsigned)topology.size();
 
     //free Connections objects (stored in matrix_of_connections)
     for(unsigned layerNum=0; layerNum<numLayers - 1; ++layerNum){
         for(unsigned neuron_numb=0; neuron_numb<topology[layerNum]; ++neuron_numb){
             for(unsigned neuron_to_connect=0; neuron_to_connect<topology[layerNum+1]; ++neuron_to_connect){
                 delete matrix_of_connections[layerNum][neuron_numb][neuron_to_connect];
-              //  cout<<"#free_connections"<<endl;
             }
         }
     }
@@ -75,11 +72,7 @@ Net::~Net() {
     for(unsigned layerNum=0; layerNum<numLayers; ++layerNum){
         for(unsigned neuron_numb=0; neuron_numb<topology[layerNum]; ++neuron_numb){
             unsigned long num_outputs =  net_matrix[layerNum][neuron_numb].outputs.size();
-            //cout<<"num_outputs_"<<num_outputs<<endl;
-
             for(unsigned activation_num=0; activation_num<num_outputs; ++activation_num){
-
-                //cout<<"free_outputs_nb_"<<activation_num<<endl;
                 delete net_matrix[layerNum][neuron_numb].outputs[activation_num];
 
             }
@@ -109,12 +102,12 @@ void Net::Back_propagation(vector<double> &targets) {
     // 1. Calculate overall net error
     cost = calculate_cost(targets);
 
-    // 2. Calculate output_layer gradients for each neuron (node)
+    // 2. Calculate delta for each output neuron (node)
     for(unsigned output_neuron_num=0; output_neuron_num<topology.back(); ++output_neuron_num){
         net_matrix.back()[output_neuron_num].calculate_output_layer_delta(targets[output_neuron_num]);
     }
 
-    // 3. Calculate hidden_layers gradients for each neuron (node)
+    // 3. Calculate delta for each hidden layer neuron (node)
     for(unsigned hidden_layer_num = (unsigned)topology.size()-2; hidden_layer_num>0; --hidden_layer_num){
         //for each neuron
         for(unsigned neuron_num=0; neuron_num<topology[hidden_layer_num]; ++neuron_num){
@@ -122,14 +115,12 @@ void Net::Back_propagation(vector<double> &targets) {
         }
     }
 
-    // 4. Update every weight   //todo inna petla, z gory na dol jest tam
+    // 4. Update every weight
     for(unsigned layer_num=0; layer_num<topology.size(); ++layer_num){
         for(unsigned neuron_num=0; neuron_num<topology[layer_num]; ++neuron_num){
             net_matrix[layer_num][neuron_num].update_previous_layer_weights();
         }
     }
-
-    
 
 }
 
@@ -145,16 +136,10 @@ double Net::calculate_cost(vector<double> &targets) {
     for(int output_num=0; output_num<Outputs.size(); ++output_num){
         var = (*Outputs[output_num]) - targets[output_num];
         total_cost += var * var;    //squared
-
     }
 
     total_cost /=topology.back();
     total_cost = sqrt(total_cost);
-
-    //total_cost = total_cost/2; //todo
-
-    //cost = cost/Outputs.size();
-    //cost = sqrt(cost);
 
     return total_cost;
 
