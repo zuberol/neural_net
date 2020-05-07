@@ -1,12 +1,15 @@
-# Neural network implementation
-This project was created in Vanilla C++ code without any additional libraries.
+# Artificial Neural Network implementation
+This project was created in Vanilla C++ without any additional libraries.
+
+# What it does?
+It can be used in various fields. The most common are classification, data processing or function approximation. There is an example of that last one hardcoded in main.cpp file.
 
 # Example
 ![example 1](./photos/1.png?raw=true "Example")
 ![example 2](./photos/2.png?raw=true "Example")
-<p align="center">
-  <img src="./photos/1.png" width="350" title="hover text">
-  <img src="./photos/2.png" width="350" alt="accessibility text">
+<p align="center" display="block">
+  <img src="./photos/1.png" width="500" alt="example photo num 1">
+  <img src="./photos/2.png" width="500" alt="example photo num 1">
 </p>
 ## How to run?
 ```bash
@@ -15,8 +18,6 @@ cd neural_net
 make
 ./out
 ```
-## Requirements:
-* g++ compiler
 
 ## Author
 **Jakub Żuber** - [zuberol](https://github.com/zuberol)
