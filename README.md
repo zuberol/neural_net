@@ -21,4 +21,4 @@ make
 **Jakub Żuber** - [zuberol](https://github.com/zuberol)
 
 ## License
-This project is free to use or modify.
+[MIT](https://choosealicense.com/licenses/mit/)
