@@ -44,7 +44,7 @@ int main(){
 
 
     for(int i=0; i<10000; ++i){
-        cout<<"Iteracja nr: "<<i<<endl;
+        cout<<"Iteration number: "<<i<<endl;
         make_XOR_data(data, target);
 
         neural_net.Feed_forward(data);
